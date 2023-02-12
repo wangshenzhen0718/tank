@@ -1,4 +1,4 @@
-package com.wang.draw;
+package com.wang.draw01;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,15 +9,15 @@ import java.awt.*;
  * @Version: 1.0
  * @Since: 1.0
  */
-public class DrawCircle extends JFrame {
+public class DrawCircle01 extends JFrame {
     MyPanel myPanel=null;
     //JFrame 对应窗口 相当于画框
     public static void main(String[] args){
-        new DrawCircle();
+        new DrawCircle01();
 
 
     }
-    public DrawCircle(){
+    public DrawCircle01(){
         myPanel = new MyPanel();
         this.add(myPanel);
         this.setSize(400, 300);
