@@ -16,6 +16,7 @@ public class MyPanel extends JPanel implements KeyListener {
     public MyPanel() {
         //初始化自己坦克
         hero = new Hero(100, 100);
+        hero.setSpeed(10);
     }
     @Override
     public void paint(Graphics g) {
@@ -98,12 +99,16 @@ public class MyPanel extends JPanel implements KeyListener {
 //改变坦克的方向
             hero.setDirect(0);//
 //修改坦克的坐标 y -= 1
+            hero.moveUp();
         } else if (e.getKeyCode() == KeyEvent.VK_D) {//D 键, 向右
             hero.setDirect(1);
+            hero.moveRight();
         } else if (e.getKeyCode() == KeyEvent.VK_S) {//S 键
             hero.setDirect(2);
+            hero.moveDown();
         } else if (e.getKeyCode() == KeyEvent.VK_A) {//A 键
             hero.setDirect(3);
+            hero.moveLeft();
         }
 //让面板重绘
         this.repaint();
