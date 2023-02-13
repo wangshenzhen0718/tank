@@ -11,10 +11,20 @@ public class Tank {
     private int x;
     //坦克的纵坐标
     private int y;
+    private int direct;
     public Tank(int x, int y) {
         this.x = x;
         this.y = y;
     }
+
+    public int getDirect() {
+        return direct;
+    }
+
+    public void setDirect(int direct) {
+        this.direct = direct;
+    }
+
     public int getX() {
         return x;
     }

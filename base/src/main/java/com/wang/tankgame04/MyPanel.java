@@ -2,13 +2,15 @@ package com.wang.tankgame04;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
 * @author 韩顺平
 * @version 1.0
 * 坦克大战的绘图区域
 */
-public class MyPanel extends JPanel {
+public class MyPanel extends JPanel implements KeyListener {
 //定义我的坦克
     Hero hero = null;
     public MyPanel() {
@@ -21,7 +23,7 @@ public class MyPanel extends JPanel {
         //填充矩形，默认黑色
         g.fillRect(0, 0, 1000, 750);
         //画出坦克-封装方法
-        drawTank(hero.getX(), hero.getY(), g, 0, 0);
+        drawTank(hero.getX(), hero.getY(), g, hero.getDirect(), 0);
     }
     //编写方法，画出坦克
     /**
@@ -83,4 +85,33 @@ public class MyPanel extends JPanel {
             System.out.println("暂时没有处理");
             }
         }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e.getKeyCode());
+        if (e.getKeyCode() == KeyEvent.VK_W) {//按下 W 键
+//改变坦克的方向
+            hero.setDirect(0);//
+//修改坦克的坐标 y -= 1
+        } else if (e.getKeyCode() == KeyEvent.VK_D) {//D 键, 向右
+            hero.setDirect(1);
+        } else if (e.getKeyCode() == KeyEvent.VK_S) {//S 键
+            hero.setDirect(2);
+        } else if (e.getKeyCode() == KeyEvent.VK_A) {//A 键
+            hero.setDirect(3);
+        }
+//让面板重绘
+        this.repaint();
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
