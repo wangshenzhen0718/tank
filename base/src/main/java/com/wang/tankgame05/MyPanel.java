@@ -11,7 +11,7 @@ import java.util.Vector;
 * @version 1.0
 * 坦克大战的绘图区域
 */
-public class MyPanel extends JPanel implements KeyListener {
+public class MyPanel extends JPanel implements KeyListener, Runnable{
 //定义我的坦克
     Hero hero = null;
     int enemySize=3;
@@ -33,6 +33,11 @@ public class MyPanel extends JPanel implements KeyListener {
         g.fillRect(0, 0, 1000, 750);
         //画出坦克-封装方法
         drawTank(hero.getX(), hero.getY(), g, hero.getDirect(), 0);
+        //画出hero射击的子弹
+        if(hero.shot != null && hero.shot.isLive == true) {
+            System.out.println("子弹被绘制...");
+            g.draw3DRect(hero.shot.x, hero.shot.y, 2, 2, false);
+        }
         for (int i = 0; i < enemyTanks.size(); i++) {
             drawTank(enemyTanks.get(i).getX(), enemyTanks.get(i).getY(), g, enemyTanks.get(i).getDirect(), 1);
         }
@@ -133,6 +138,18 @@ public class MyPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+    }
+    @Override
+    public void run(){
+        while (true) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.repaint();
+        }
 
     }
 }

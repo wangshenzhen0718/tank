@@ -13,6 +13,7 @@ public class TankGame extends JFrame {
     MyPanel mp = null;
     public TankGame() {
         mp = new MyPanel();
+        new Thread(mp).start();
         //把面板(就是游戏的绘图区域)
         this.add(mp);
         this.setSize(1000, 750);
