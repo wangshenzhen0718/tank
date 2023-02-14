@@ -1,9 +1,9 @@
-package com.wang.tankgame04;
+package com.wang.tankgame05;
 /**
  * @Author:wsz
- * @Date: 2023/2/12 15:28
+ * @Date: 2023/2/14 21:28
  * @Description:坦克对象
- * @Version: 2.0
+ * @Version: 3.0
  * @Since: 1.0
  */
 public class Tank {
