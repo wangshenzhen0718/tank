@@ -1,4 +1,4 @@
-package com.wang.tankgame06.tankgame05;
+package com.wang.tankgame06;
 /**
  * @Author:wsz
  * @Date: 2023/2/15 21:28

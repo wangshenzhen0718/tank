@@ -1,4 +1,4 @@
-package com.wang.tankgame06.tankgame05;
+package com.wang.tankgame06;
 
 import java.util.Vector;
 
