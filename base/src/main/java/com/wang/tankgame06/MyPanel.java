@@ -125,6 +125,25 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
 
     }
 
+    public void hitTank(Shot shot, EnemyTank enemyTank) {
+        switch (enemyTank.getDirect()){
+            case 0:
+            case 2:
+                if (shot.x>enemyTank.getX()&&shot.x<enemyTank.getX()+40&&shot.y>enemyTank.getY()&&shot.y<enemyTank.getY()+60){
+                    shot.isLive=false;
+                    enemyTank.isLive=false;
+                }
+                break;
+            case 1:
+            case 3:
+                if (shot.x>enemyTank.getX()&&shot.x<enemyTank.getX()+60&&shot.y>enemyTank.getY()&&shot.y<enemyTank.getY()+40){
+                    shot.isLive=false;
+                    enemyTank.isLive=false;
+                }
+                break;
+        }
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println(e.getKeyCode());
@@ -164,6 +183,12 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            if (hero.shot!=null&&hero.shot.isLive){
+                for (int i = 0; i < enemyTanks.size(); i++) {
+                    EnemyTank enemyTank = enemyTanks.get(i);
+                    hitTank(hero.shot,enemyTank);
+                }
             }
             this.repaint();
         }

@@ -47,7 +47,7 @@ public class Shot implements Runnable{
 
             System.out.println("子弹 x=" + x + " y=" + y);
             //当子弹移动到面板的边界时，就应该销毁（把启动的子弹的线程销毁)
-            if (!(x >= 0 && x <= 1000 && y >= 0 && y <= 750)) {
+            if (!(x >= 0 && x <= 1000 && y >= 0 && y <= 750&&isLive)) {
                 System.out.println("子弹线程退出");
                 isLive = false;
                 break;
