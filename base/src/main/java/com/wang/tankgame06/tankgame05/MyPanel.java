@@ -23,6 +23,9 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
         for (int i = 0; i < enemySize; i++) {
             EnemyTank enemyTank = new EnemyTank((i + 1) * 100, 0);
             enemyTank.setDirect(2);
+            Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect());
+            enemyTank.shots.add(shot);
+            new Thread(shot).start();
             enemyTanks.add(enemyTank);
         }
     }
@@ -39,7 +42,17 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
             g.draw3DRect(hero.shot.x, hero.shot.y, 2, 2, false);
         }
         for (int i = 0; i < enemyTanks.size(); i++) {
-            drawTank(enemyTanks.get(i).getX(), enemyTanks.get(i).getY(), g, enemyTanks.get(i).getDirect(), 1);
+            EnemyTank enemyTank = enemyTanks.get(i);
+            drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirect(), 1);
+            for(int j = 0; j < enemyTank.shots.size(); j++) {
+                Shot shot = enemyTank.shots.get(j);
+                if (enemyTank.isLive){
+                  g.draw3DRect(shot.x, shot.y, 2, 2, false);
+              }else {
+                  //从Vector 移除
+                  enemyTank.shots.remove(shot);
+              }
+            }
         }
     }
     //编写方法，画出坦克
