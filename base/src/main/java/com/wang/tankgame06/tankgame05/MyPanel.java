@@ -43,16 +43,20 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
         }
         for (int i = 0; i < enemyTanks.size(); i++) {
             EnemyTank enemyTank = enemyTanks.get(i);
-            drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirect(), 1);
-            for(int j = 0; j < enemyTank.shots.size(); j++) {
-                Shot shot = enemyTank.shots.get(j);
-                if (enemyTank.isLive){
-                  g.draw3DRect(shot.x, shot.y, 2, 2, false);
-              }else {
-                  //从Vector 移除
-                  enemyTank.shots.remove(shot);
-              }
+            if (enemyTank.isLive) {//当敌人坦克是存活的，才画出该坦克
+                drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirect(), 1);
+                for(int j = 0; j < enemyTank.shots.size(); j++) {
+                    Shot shot = enemyTank.shots.get(j);
+                    if (enemyTank.isLive){
+                        g.draw3DRect(shot.x, shot.y, 2, 2, false);
+                    }else {
+                        //从Vector 移除
+                        enemyTank.shots.remove(shot);
+                    }
+                }
+
             }
+
         }
     }
     //编写方法，画出坦克
