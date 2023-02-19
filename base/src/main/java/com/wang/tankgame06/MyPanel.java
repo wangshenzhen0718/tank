@@ -31,6 +31,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
         for (int i = 0; i < enemySize; i++) {
             EnemyTank enemyTank = new EnemyTank((i + 1) * 100, 0);
             enemyTank.setDirect(2);
+            new Thread(enemyTank).start();
             Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect());
             enemyTank.shots.add(shot);
             new Thread(shot).start();
@@ -57,6 +58,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
             EnemyTank enemyTank = enemyTanks.get(i);
             if (enemyTank.isLive) {//当敌人坦克是存活的，才画出该坦克
                 drawTank(enemyTank.getX(), enemyTank.getY(), g, enemyTank.getDirect(), 1);
+
                 for(int j = 0; j < enemyTank.shots.size(); j++) {
                     Shot shot = enemyTank.shots.get(j);
                     if (enemyTank.isLive){
