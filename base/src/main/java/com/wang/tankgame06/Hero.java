@@ -1,5 +1,7 @@
 package com.wang.tankgame06;
 
+import java.util.Vector;
+
 /**
  * @Author:wsz
  * @Date: 2023/2/12 15:30
@@ -10,11 +12,15 @@ package com.wang.tankgame06;
 public class Hero extends Tank {
 
     Shot shot=null;
+
+    Vector<Shot> shots = new Vector<>();
     public Hero(int x, int y) {
         super(x, y);
     }
 
     public void shotEnemyTank(){
+        //如果子弹个数到了5个就不能发射了
+        if (shots.size()==5)return;
 
         //创建 Shot 对象, 根据当前Hero对象的位置和方向来创建Shot
         switch (getDirect()) {//得到Hero对象方向
@@ -31,6 +37,7 @@ public class Hero extends Tank {
                 shot = new Shot(getX(), getY() + 20, 3);
                 break;
         }
+        shots.add(shot);
         new Thread(shot).start();
 
     }
