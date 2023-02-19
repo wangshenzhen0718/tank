@@ -191,19 +191,27 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
     public void keyPressed(KeyEvent e) {
         System.out.println(e.getKeyCode());
         if (e.getKeyCode() == KeyEvent.VK_W) {//按下 W 键
-//改变坦克的方向
+        //改变坦克的方向
             hero.setDirect(0);//
-//修改坦克的坐标 y -= 1
-            hero.moveUp();
+        //修改坦克的坐标 y -= 1
+            if (hero.getY()>0){
+                hero.moveUp();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_D) {//D 键, 向右
             hero.setDirect(1);
-            hero.moveRight();
+            if (hero.getX()+60<1000){
+                hero.moveRight();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_S) {//S 键
             hero.setDirect(2);
-            hero.moveDown();
+            if (hero.getY() + 60 < 750){
+                hero.moveDown();
+            }
         } else if (e.getKeyCode() == KeyEvent.VK_A) {//A 键
             hero.setDirect(3);
-            hero.moveLeft();
+            if (hero.getX()>0){
+                hero.moveLeft();
+            }
         }
         //如果用户按下的是J,就发射
         if(e.getKeyCode() == KeyEvent.VK_J) {

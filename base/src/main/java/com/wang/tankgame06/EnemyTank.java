@@ -24,7 +24,9 @@ public class EnemyTank extends Tank implements Runnable{
                 case 0:
                     //让坦克保持一个方向，走30步
                     for (int i = 0; i < 30; i++) {
-                        moveUp();
+                        if (getY()>0){
+                            moveUp();
+                        }
                         //休眠50毫秒
                         try {
                             Thread.sleep(50);
@@ -35,7 +37,9 @@ public class EnemyTank extends Tank implements Runnable{
                     break;
                 case 1:  //向右
                     for (int i = 0; i < 30; i++) {
-                        moveRight();
+                        if (getX()+60<1000){
+                            moveRight();
+                        }
                         //休眠50毫秒
                         try {
                             Thread.sleep(50);
@@ -46,7 +50,9 @@ public class EnemyTank extends Tank implements Runnable{
                     break;
                 case 2:  //向下
                     for (int i = 0; i < 30; i++) {
-                        moveDown();
+                        if (getY() + 60 < 750){
+                            moveDown();
+                        }
                         //休眠50毫秒
                         try {
                             Thread.sleep(50);
@@ -57,7 +63,9 @@ public class EnemyTank extends Tank implements Runnable{
                     break;
                 case 3:  //向左
                     for (int i = 0; i < 30; i++) {
-                        moveLeft();
+                        if (getX()>0){
+                            moveLeft();
+                        }
                         //休眠50毫秒
                         try {
                             Thread.sleep(50);
