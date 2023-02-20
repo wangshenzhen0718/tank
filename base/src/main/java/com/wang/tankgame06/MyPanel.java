@@ -70,7 +70,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
 
                 for(int j = 0; j < enemyTank.shots.size(); j++) {
                     Shot shot = enemyTank.shots.get(j);
-                    if (enemyTank.isLive){
+                    if (shot.isLive){
                         g.draw3DRect(shot.x, shot.y, 2, 2, false);
                     }else {
                         //从Vector 移除
