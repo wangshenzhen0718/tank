@@ -13,6 +13,7 @@ public class Tank {
     private int y;
     private int direct;
     private int speed = 1;
+    boolean isLive = true;
     public Tank(int x, int y) {
         this.x = x;
         this.y = y;

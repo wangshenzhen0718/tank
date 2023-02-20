@@ -48,7 +48,9 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
         //填充矩形，默认黑色
         g.fillRect(0, 0, 1000, 750);
         //画出坦克-封装方法
-        drawTank(hero.getX(), hero.getY(), g, hero.getDirect(), 0);
+        if (hero!=null&&hero.isLive){
+            drawTank(hero.getX(), hero.getY(), g, hero.getDirect(), 0);
+        }
         //画出hero射击的子弹
         for (int i = 0; i < hero.shots.size(); i++) {
             Shot shot = hero.shots.get(i);
@@ -170,7 +172,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
 
     public void hitEnemyTank() {
 
-        //遍历我们的子弹
+        /*//遍历我们的子弹
         for(int j = 0;j < hero.shots.size();j++) {
             Shot shot = hero.shots.get(j);
             //判断是否击中了敌人坦克
@@ -183,10 +185,10 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
                 }
 
             }
-        }
+        }*/
 
         //单颗子弹。
-/*        if (hero.shot != null && hero.shot.isLive) {//当我的子弹还存活
+        if (hero.shot != null && hero.shot.isLive) {//当我的子弹还存活
 
             //遍历敌人所有的坦克
             for (int i = 0; i < enemyTanks.size(); i++) {
@@ -194,33 +196,33 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
                 hitTank(hero.shot, enemyTank);
             }
 
-        }*/
+        }
 
     }
 
-    public void hitTank(Shot shot, EnemyTank enemyTank) {
-        switch (enemyTank.getDirect()){
+    public void hitTank(Shot shot, Tank tank) {
+        switch (tank.getDirect()){
             case 0:
             case 2:
-                if (shot.x>enemyTank.getX()&&shot.x<enemyTank.getX()+40&&shot.y>enemyTank.getY()&&shot.y<enemyTank.getY()+60){
+                if (shot.x>tank.getX()&&shot.x<tank.getX()+40&&shot.y>tank.getY()&&shot.y<tank.getY()+60){
                     shot.isLive=false;
-                    enemyTank.isLive=false;
+                    tank.isLive=false;
                     //创建Bomb对象，加入到bombs集合
-                    Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
+                    Bomb bomb = new Bomb(tank.getX(), tank.getY());
                     bombs.add(bomb);
                     //攻击中敌人后从容器中移除
-                    enemyTanks.remove(enemyTank);
+                    enemyTanks.remove(tank);
                 }
                 break;
             case 1:
             case 3:
-                if (shot.x>enemyTank.getX()&&shot.x<enemyTank.getX()+60&&shot.y>enemyTank.getY()&&shot.y<enemyTank.getY()+40){
+                if (shot.x>tank.getX()&&shot.x<tank.getX()+60&&shot.y>tank.getY()&&shot.y<tank.getY()+40){
                     shot.isLive=false;
-                    enemyTank.isLive=false;
+                    tank.isLive=false;
                     //创建Bomb对象，加入到bombs集合
-                    Bomb bomb = new Bomb(enemyTank.getX(), enemyTank.getY());
+                    Bomb bomb = new Bomb(tank.getX(), tank.getY());
                     bombs.add(bomb);
-                    enemyTanks.remove(enemyTank);
+                    enemyTanks.remove(tank);
                 }
                 break;
         }
@@ -269,6 +271,24 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
     public void keyReleased(KeyEvent e) {
 
     }
+
+    //编写方法，判断敌人坦克是否击中我的坦克
+    public void hitHero() {
+        //遍历所有的敌人坦克
+        for (int i = 0; i < enemyTanks.size(); i++) {
+            //取出敌人坦克
+            EnemyTank enemyTank = enemyTanks.get(i);
+            //遍历enemyTank 对象的所有子弹
+            for (int j = 0; j < enemyTank.shots.size(); j++) {
+                //取出子弹
+                Shot shot = enemyTank.shots.get(j);
+                //判断 shot 是否击中我的坦克
+                if (hero.isLive && shot.isLive) {
+                    hitTank(shot, hero);
+                }
+            }
+        }
+    }
     @Override
     public void run(){
         while (true) {
@@ -277,13 +297,8 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (hero.shot!=null&&hero.shot.isLive){
-                for (int i = 0; i < enemyTanks.size(); i++) {
-                    EnemyTank enemyTank = enemyTanks.get(i);
-                    hitTank(hero.shot,enemyTank);
-                }
-            }
             hitEnemyTank();
+            hitHero();
             this.repaint();
         }
 
