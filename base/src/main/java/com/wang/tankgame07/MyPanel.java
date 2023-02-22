@@ -14,7 +14,7 @@ import java.util.Vector;
 public class MyPanel extends JPanel implements KeyListener, Runnable{
 //定义我的坦克
     Hero hero = null;
-    int enemySize=3;
+    int enemySize=10;
     Vector<EnemyTank> enemyTanks = new Vector();
     //定义一个Vector ,用于存放炸弹
     //说明，当子弹击中坦克时，加入一个Bomb对象到bombs
@@ -31,6 +31,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
         for (int i = 0; i < enemySize; i++) {
             EnemyTank enemyTank = new EnemyTank((i + 1) * 100, 0);
             enemyTank.setDirect(2);
+            enemyTank.setEnemyTanks(enemyTanks);
             new Thread(enemyTank).start();
             Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect());
             enemyTank.shots.add(shot);
