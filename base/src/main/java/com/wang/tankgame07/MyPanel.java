@@ -14,7 +14,7 @@ import java.util.Vector;
 public class MyPanel extends JPanel implements KeyListener, Runnable{
 //定义我的坦克
     Hero hero = null;
-    int enemySize=10;
+    int enemySize=3;
     Vector<EnemyTank> enemyTanks = new Vector();
     //定义一个Vector ,用于存放炸弹
     //说明，当子弹击中坦克时，加入一个Bomb对象到bombs
@@ -48,6 +48,7 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
         super.paint(g);
         //填充矩形，默认黑色
         g.fillRect(0, 0, 1000, 750);
+        showInfo(g);
         //画出坦克-封装方法
         if (hero!=null&&hero.isLive){
             drawTank(hero.getX(), hero.getY(), g, hero.getDirect(), 0);
@@ -104,6 +105,21 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
                 bombs.remove(bomb);
             }
         }
+    }
+
+    //编写方法，显示我方击毁敌方坦克的信息
+    public void showInfo(Graphics g) {
+
+        //画出玩家的总成绩
+        g.setColor(Color.BLACK);
+        Font font = new Font("宋体", Font.BOLD, 25);
+        g.setFont(font);
+
+        g.drawString("您累积击毁敌方坦克", 1020, 30);
+        drawTank(1020, 60, g, 0, 0);//画出一个敌方坦克
+        g.setColor(Color.BLACK);//这里需要重新设置成黑色
+        g.drawString(Recorder.getAllEnemyTankNum()+"", 1080, 100);
+
     }
     //编写方法，画出坦克
     /**
@@ -213,6 +229,9 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
                     bombs.add(bomb);
                     //攻击中敌人后从容器中移除
                     enemyTanks.remove(tank);
+                    if (tank instanceof EnemyTank){
+                        Recorder.addAllEnemyTankNum();
+                    }
                 }
                 break;
             case 1:
@@ -224,6 +243,9 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
                     Bomb bomb = new Bomb(tank.getX(), tank.getY());
                     bombs.add(bomb);
                     enemyTanks.remove(tank);
+                    if (tank instanceof EnemyTank){
+                        Recorder.addAllEnemyTankNum();
+                    }
                 }
                 break;
         }

@@ -1,6 +1,9 @@
 package com.wang.tankgame07;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 /**
  * @Author:wsz
  * @Date: 2023/2/12 22:50
@@ -20,6 +23,15 @@ public class TankGame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addKeyListener(mp);
         this.setVisible(true);
+        //在JFrame 中增加相应关闭窗口的处理
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("监听到了");
+                Recorder.keepRecord();
+                System.exit(0);
+            }
+        });
     }
 
     public static void main(String[] args) {
