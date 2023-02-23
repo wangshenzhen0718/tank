@@ -25,6 +25,8 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
     Image image2 = null;
     Image image3 = null;
     public MyPanel() {
+        //将MyPanel对象的 enemyTanks 设置给 Recorder 的 enemyTanks
+        Recorder.setEnemyTanks(enemyTanks);
         //初始化自己坦克
         hero = new Hero(100, 100);
         hero.setSpeed(10);
