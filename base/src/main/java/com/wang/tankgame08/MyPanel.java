@@ -65,6 +65,8 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
         image1 = Toolkit.getDefaultToolkit().getImage("E:\\视频资料\\韩顺平\\java基础\\韩顺平 2021零基础学Java 【软件 资料 代码 笔记】\\资料\\分享资料\\bomb_1.gif");
         image2 = Toolkit.getDefaultToolkit().getImage("E:\\视频资料\\韩顺平\\java基础\\韩顺平 2021零基础学Java 【软件 资料 代码 笔记】\\资料\\分享资料\\bomb_2.gif");
         image3 = Toolkit.getDefaultToolkit().getImage("E:\\视频资料\\韩顺平\\java基础\\韩顺平 2021零基础学Java 【软件 资料 代码 笔记】\\资料\\分享资料\\bomb_3.gif");
+        //这里，播放指定的音乐
+        new AePlayWave("E:\\视频资料\\韩顺平\\java基础\\韩顺平 2021零基础学Java 【软件 资料 代码 笔记】\\代码\\代码\\chapter20\\src\\111.wav").start();
     }
     @Override
     public void paint(Graphics g) {
