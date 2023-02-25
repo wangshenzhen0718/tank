@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.Vector;
 
 /**
@@ -27,12 +28,19 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
     Image image2 = null;
     Image image3 = null;
     public MyPanel(String key) {
-        nodes  = Recorder.getNodesAndEnemyTankRec();
+
         //将MyPanel对象的 enemyTanks 设置给 Recorder 的 enemyTanks
         Recorder.setEnemyTanks(enemyTanks);
         //初始化自己坦克
         hero = new Hero(100, 100);
         hero.setSpeed(10);
+        File file = new File(Recorder.getRecordFile());
+        if (file.exists()){
+            nodes  = Recorder.getNodesAndEnemyTankRec();
+        }else {
+            System.out.println("文件不存在，只能开启新游戏！");
+            key="1";
+        }
         switch (key){
             case "1":
                 for (int i = 0; i < enemySize; i++) {

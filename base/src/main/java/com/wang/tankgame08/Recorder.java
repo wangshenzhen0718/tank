@@ -21,7 +21,9 @@ public class Recorder {
     public static void setEnemyTanks(Vector<EnemyTank> enemyTanks) {
         Recorder.enemyTanks = enemyTanks;
     }
-
+    public static String getRecordFile() {
+        return recordFile;
+    }
     public static int getAllEnemyTankNum() {
         return allEnemyTankNum;
     }
