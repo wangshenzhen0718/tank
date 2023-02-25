@@ -20,26 +20,47 @@ public class MyPanel extends JPanel implements KeyListener, Runnable{
     //说明，当子弹击中坦克时，加入一个Bomb对象到bombs
     Vector<Bomb> bombs = new Vector<>();
 
+    Vector<Node> nodes =null;
+
     //定义三张炸弹图片，用于显示爆炸效果
     Image image1 = null;
     Image image2 = null;
     Image image3 = null;
-    public MyPanel() {
+    public MyPanel(String key) {
+        nodes  = Recorder.getNodesAndEnemyTankRec();
         //将MyPanel对象的 enemyTanks 设置给 Recorder 的 enemyTanks
         Recorder.setEnemyTanks(enemyTanks);
         //初始化自己坦克
         hero = new Hero(100, 100);
         hero.setSpeed(10);
-        for (int i = 0; i < enemySize; i++) {
-            EnemyTank enemyTank = new EnemyTank((i + 1) * 100, 0);
-            enemyTank.setDirect(2);
-            enemyTank.setEnemyTanks(enemyTanks);
-            new Thread(enemyTank).start();
-            Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect());
-            enemyTank.shots.add(shot);
-            new Thread(shot).start();
-            enemyTanks.add(enemyTank);
+        switch (key){
+            case "1":
+                for (int i = 0; i < enemySize; i++) {
+                    EnemyTank enemyTank = new EnemyTank((i + 1) * 100, 0);
+                    enemyTank.setDirect(2);
+                    enemyTank.setEnemyTanks(enemyTanks);
+                    new Thread(enemyTank).start();
+                    Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect());
+                    enemyTank.shots.add(shot);
+                    new Thread(shot).start();
+                    enemyTanks.add(enemyTank);
+                }
+                break;
+            case "2":
+                for (int i = 0; i < nodes.size(); i++) {
+                    Node node = nodes.get(i);
+                    EnemyTank enemyTank = new EnemyTank(node.getX(), node.getY());
+                    enemyTank.setDirect(node.getDirect());
+                    enemyTank.setEnemyTanks(enemyTanks);
+                    new Thread(enemyTank).start();
+                    Shot shot = new Shot(enemyTank.getX() + 20, enemyTank.getY() + 60, enemyTank.getDirect());
+                    enemyTank.shots.add(shot);
+                    new Thread(shot).start();
+                    enemyTanks.add(enemyTank);
+                }
+                break;
         }
+
         //初始化图片对象
         image1 = Toolkit.getDefaultToolkit().getImage("E:\\视频资料\\韩顺平\\java基础\\韩顺平 2021零基础学Java 【软件 资料 代码 笔记】\\资料\\分享资料\\bomb_1.gif");
         image2 = Toolkit.getDefaultToolkit().getImage("E:\\视频资料\\韩顺平\\java基础\\韩顺平 2021零基础学Java 【软件 资料 代码 笔记】\\资料\\分享资料\\bomb_2.gif");

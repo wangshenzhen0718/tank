@@ -1,9 +1,6 @@
 package com.wang.tankgame07;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Vector;
 
 /**
@@ -17,12 +14,10 @@ public class Recorder {
 
     //定义变量，记录我方击毁敌人坦克数
     private static int allEnemyTankNum = 0;
-    //定义IO对象, 准备写数据到文件中
-    private static BufferedWriter bw = null;
-    private static BufferedReader br = null;
     //定义Vector ,指向 MyPanel 对象的 敌人坦克Vector
     private static Vector<EnemyTank> enemyTanks = null;
     private static String recordFile = "e:\\myRecord.txt";
+    private static Vector<Node> nodes=new Vector<>();
     public static void setEnemyTanks(Vector<EnemyTank> enemyTanks) {
         Recorder.enemyTanks = enemyTanks;
     }
@@ -58,6 +53,24 @@ public class Recorder {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+    }
+
+    public static Vector<Node>  getNodesAndEnemyTankRec(){
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(recordFile));){
+            String line = null;
+            allEnemyTankNum = Integer.parseInt(bufferedReader.readLine());
+            while ((line=bufferedReader.readLine()) != null){
+                String[] xyd = line.split(" ");
+
+                Node node = new Node(Integer.parseInt(xyd[0]),Integer.parseInt(xyd[1]),Integer.parseInt(xyd[2]));
+                nodes.add(node);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return nodes;
+
 
     }
 

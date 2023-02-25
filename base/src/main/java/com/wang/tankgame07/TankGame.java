@@ -3,6 +3,7 @@ package com.wang.tankgame07;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Scanner;
 
 /**
  * @Author:wsz
@@ -12,10 +13,13 @@ import java.awt.event.WindowEvent;
  * @Since: 1.0
  */
 public class TankGame extends JFrame {
+    static Scanner scanner = new Scanner(System.in);
     //定义 MyPanel
     MyPanel mp = null;
     public TankGame() {
-        mp = new MyPanel();
+        System.out.println("请输入选择 1: 新游戏 2: 继续上局");
+        String key = scanner.next();
+        mp = new MyPanel(key);
         new Thread(mp).start();
         //把面板(就是游戏的绘图区域)
         this.add(mp);
